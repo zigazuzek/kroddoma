@@ -1,0 +1,320 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+/* Variables */
+
+$anton: "Anton", sansF-serif;
+$roboto: "Roboto", sans-serif;
+
+$light-black: #333333;
+$shark-black: #21232a;
+$crimson: #cd1141;
+$forest: #22ad47;
+
+$speed: 200ms;
+$easing: cubic-bezier(0.7, 0, 0, 0.7);
+
+/* General */
+
+body {
+   background-color: white;
+   font-family: $roboto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+   font-family: $anton;
+}
+
+/* Buttons */
+
+@mixin btn($bg: $shark-black, $clr: white, $hvrclr: white, $strk: white) {
+   color: $clr;
+   position: relative;
+   font-size: 18px;
+   font-weight: 900;
+   text-transform: uppercase;
+   padding: 0 20px;
+   z-index: 9999;
+   height: 48px;
+   line-height: 47px;
+   min-width: 152px;
+   display: inline-block;
+   text-align: center;
+
+   svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+
+      path {
+         fill: $bg;
+         stroke-width: 3px;
+         stroke-dashoffset: -50px;
+         stroke: transparent;
+         transition: fill 0.5s ease-in-out, stroke 0.5s ease-in-out;
+         animation: btnOut 0.35s ease-in-out;
+      }
+   }
+
+   &:hover {
+      color: $hvrclr;
+      text-decoration: none;
+
+      svg {
+         path {
+            fill: transparent;
+            stroke: $strk;
+            animation: btnIn 0.35s ease-in-out;
+         }
+      }
+   }
+}
+
+@keyframes btnIn {
+   from {
+      stroke-dasharray: 0 386;
+   }
+   to {
+      stroke-dasharray: 386 0;
+   }
+}
+
+@keyframes btnOut {
+   0% {
+      stroke-dasharray: 386 0;
+   }
+   100% {
+      stroke-dasharray: 0 386;
+   }
+}
+
+.btn-black-dbg {
+   @include btn;
+}
+
+.btn-black-lbg {
+   @include btn($shark-black, white, $shark-black, $shark-black);
+}
+
+.btn-crimson {
+   @include btn($crimson, white, $crimson, $crimson);
+}
+
+.btn-forest {
+   @include btn($forest, white, $forest, $forest);
+}
+.btn-white {
+   @include btn(white, $forest, white, white);
+}
+
+/* Header */
+
+header {
+   background-color: white;
+
+   font-family: $anton;
+
+   .logo {
+      max-width: 180px;
+
+      @include media-breakpoint-up(sm) {
+         max-width: none;
+      }
+   }
+}
+
+.navbar-toggler {
+   overflow: hidden;
+   padding: 9px 10px;
+   border: none;
+
+   .icon-bar {
+      background-color: $light-black;
+      display: block;
+      width: 40px;
+      height: 8px;
+      margin-top: 3px;
+      border-radius: 1px;
+      transition: opacity, transform;
+      transition-duration: $speed;
+      transition-timing-function: $easing;
+   }
+
+   &:not(.collapsed) {
+      .icon-bar {
+         &:nth-child(1) {
+            transform: translateY(11px) rotate(45deg);
+         }
+         &:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-100%);
+         }
+         &:nth-child(3) {
+            transform: translateY(-11px) rotate(-45deg);
+         }
+      }
+   }
+}
+
+.nav-item {
+   @include media-breakpoint-up(lg) {
+      margin: 0 1em;
+
+      &:last-of-type {
+         margin: 0 0 0 1em;
+      }
+   }
+}
+
+.navbar-light .navbar-nav .nav-link {
+   color: $light-black;
+   font-size: 24px;
+}
+
+/* Main visual */
+
+.main-visual-img {
+   background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("../files/srna-bg.jpg") no-repeat right center / cover;
+   height: 200px;
+
+   @include media-breakpoint-up(md) {
+      background-position: right 15% center;
+      height: 600px;
+   }
+}
+
+.main-visual-content {
+   h1 {
+      color: white;
+      font-size: 38px;
+
+      @include media-breakpoint-up(sm) {
+         font-size: 48px;
+      }
+   }
+   p {
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+
+      @include media-breakpoint-up(sm) {
+         font-size: 22px;
+      }
+   }
+}
+
+.main-visual-overlay {
+   background-color: #f05a22;
+
+   @include media-breakpoint-up(md) {
+      &:before {
+         content: "";
+         background: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='46px' height='600px' viewBox='0 0 46 600' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg id='Artboard' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cpath d='M18.6231477,383.391651 C18.6231477,392.768451 23.7802677,399.019251 23.7802677,408.396051 C26.3589477,417.772851 26.3591877,427.149651 26.3591877,436.525251 C28.9377477,452.152851 28.9373877,467.780451 28.9373877,480.282051 C28.9373877,508.412451 26.3591877,536.541651 26.3590677,564.670851 C26.3590677,583.424451 23.7805077,608.428851 34.0949877,624.056451 C44.4093477,642.808851 67.6166277,647.493651 83.0882277,647.493651 C139.817988,650.619651 199.125588,638.118051 255.854388,641.242851 C335.791188,644.368851 413.149188,642.808851 493.084788,642.808851 C524.027988,642.808851 557.549988,649.059651 591.071988,645.934851 C611.701188,642.808851 629.751588,636.558051 650.379588,639.684051 C673.587588,639.684051 707.109588,642.808851 732.895188,630.307251 C738.052788,636.558051 743.209188,639.682851 750.945588,636.558051 C784.467588,614.679651 779.309988,567.796851 774.152388,530.290851 C771.574788,502.161651 768.995988,470.906451 768.995988,439.651251 C768.995988,427.149651 766.417188,411.522051 768.995988,399.019251 C771.574788,389.643651 776.731188,386.517651 781.888788,377.140851 C787.046388,370.890051 792.202788,361.513251 794.781588,352.136451 C812.831988,286.501251 789.623988,217.740051 787.046388,152.104851 C787.046388,123.975171 784.467588,92.7203311 781.888788,64.5907711 C779.309988,42.7122511 771.573588,-4.17030891 750.945588,-13.5468689 C735.473988,-19.7979089 725.158788,-1.04478891 712.265988,2.08061109 C696.794388,5.20613109 683.901588,-4.17042891 668.429988,-7.29594891 C650.379588,-10.4214689 632.330388,-7.29594891 616.858788,-7.29594891 C578.179188,-7.29594891 542.079588,-7.29594891 503.399988,-7.29594891 C482.770788,-7.29594891 464.720388,-7.29594891 444.092388,-7.29594891 C428.620788,-7.29594891 413.149188,-10.4214689 397.677588,-7.29594891 C384.784788,-4.17042891 371.891988,-1.04502891 356.420388,-1.04502891 C346.105188,-1.04502891 333.212388,-7.29594891 322.898388,-10.4214689 C294.533988,-16.6725089 263.589588,-16.6725089 235.225188,-13.5469889 C196.546788,-13.5469889 152.743188,-13.9353089 111.485388,-10.8097889 C72.8063877,-7.68426891 39.2518677,-13.5469889 16.0444677,33.3356551 C-4.58433627,73.9672111 0.573078935,142.728291 0.573075335,186.484851 C10.8874797,248.995251 18.6231477,314.630451 18.6231477,383.391651 Z' id='Path' fill='%23F05A22' fill-rule='nonzero'%3E%3C/path%3E%3C/g%3E%3C/svg%3E")
+            no-repeat center center/contain;
+         width: 46px;
+         height: 600px;
+         position: absolute;
+         left: -46px;
+         top: 0;
+      }
+   }
+}
+
+/* Challenges */
+
+.challenges {
+   background-color: white;
+
+   h2 {
+      font-size: 34px;
+   }
+
+   h3,
+   h4 {
+      font-size: 26px;
+   }
+   .card {
+      border: none;
+      border-radius: 0;
+
+      .card-img-overlay {
+         border-radius: 0;
+      }
+      .card-img {
+         border-radius: 0;
+         height: 300px;
+         object-fit: cover;
+         object-position: 50% 50%;
+
+         @include media-breakpoint-up(sm) {
+            height: auto;
+            object-fit: fill;
+            object-position: initial;
+         }
+      }
+   }
+
+   p {
+      font-size: 18px;
+   }
+}
+
+/* Challenges CTA */
+
+.challenges-cta {
+   padding: 100px 0;
+   background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../files/gozd-bg.jpg") no-repeat bottom right 35% / cover;
+
+   @include media-breakpoint-up(xl) {
+      background-position: bottom center;
+      padding: 135px 0;
+   }
+}
+
+.challenges-cta-content {
+   h2 {
+      color: white;
+   }
+   p {
+      color: white;
+      font-size: 18px;
+   }
+}
+
+/* Footer */
+
+footer {
+   background-color: #21232a;
+   color: white;
+
+   a {
+      color: white;
+
+      &:hover {
+         color: white;
+      }
+   }
+
+   .contact-us {
+      max-width: 600px;
+
+      & > * {
+         padding: 20px;
+      }
+   }
+   .social {
+      a {
+         padding: 20px;
+      }
+   }
+   .copyright {
+      border-top: 1px solid rgba(255, 255, 255, 0.5);
+   }
+}
